@@ -1,19 +1,22 @@
 export const locService = {
-    getLocs
-}
-
+  getLocs,
+};
 
 const locs = [
-    { name: 'Greatplace', lat: 32.047104, lng: 34.832384 }, 
-    { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
-]
+  { name: "Greatplace", lat: 32.047104, lng: 34.832384 },
+  { name: "Neveragain", lat: 32.047201, lng: 34.832581 },
+  // id: getId(),
+  // name: onNameSubmint(),
+  // lat: lat,
+  // lng: lng,
+  // createdAt,
+  // updatedAt,
+];
 
 function getLocs() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(locs);
-        }, 2000)
-    });
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(locs);
+    }, 2000);
+  });
 }
-
-
