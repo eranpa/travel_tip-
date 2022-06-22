@@ -2,6 +2,7 @@ export const mapService = {
   initMap,
   addMarker,
   panTo,
+  mapClick,
 };
 
 var gMap;
@@ -18,7 +19,11 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
     gMap.addListener("click", (mapsMouseEvent) => {
       let { lat, lng } = mapsMouseEvent.latLng;
-      console.log(lat(), lng());
+      mapClick(mapsMouseEvent.latLng)
+      // console.log(lat(), lng());
+      panTo(lat(), lng())
+
+   
     });
   });
 }
@@ -50,3 +55,29 @@ function _connectGoogleApi() {
     elGoogleApi.onerror = () => reject("Google script failed to load");
   });
 }
+
+
+function mapClick (evLoc){ 
+  let { lat, lng } = evLoc;
+  panTo(lat(), lng()) 
+  let marker = addMarker({lat:lat(),lng: lng()})
+  console.log(marker)
+  let contentString = `<form onsubmit="OnNameSubmit(event,${lat()},${lng()})">
+  <input type="text" name="name" placeholder="Enter locations name">
+  <button>submit</button>
+</form>`
+
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+ 
+ 
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map: gMap,
+      shouldFocus: false,
+    });
+  });
+}
+

@@ -1,11 +1,15 @@
 import { locService } from "./services/loc.service.js";
 import { mapService } from "./services/map.service.js";
+import { utilService } from "./services/util.service.js";
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+window.OnNameSubmit = OnNameSubmit;
+// window.updateLocs = updateLocs;
+
 
 function onInit() {
   mapService
@@ -70,3 +74,18 @@ function onPanTo() {
   console.log("Panning the Map");
   mapService.panTo(35.6895, 139.6917);
 }
+
+function OnNameSubmit(ev, lat, lng){
+  if (ev) ev.preventDefault();
+  const elInputName = document.querySelector('input[name=name]');
+
+  let location = locService.createLocation(elInputName.value, lat, lng)
+  locService.updateLocs(location)
+ 
+}
+
+// function OnMapCLick(evLoc) { 
+//   console.log("Map clicked");
+//   mapService.MapClick(evLoc)
+// }
+
