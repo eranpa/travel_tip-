@@ -32,19 +32,19 @@ td {
 /*mobile*/
 @media (max-width: 840px) {
   body {
-    background-color: green;
+
   }
 }
 
 /* tablet */
 @media (min-width: 840px) {
   body {
-    background-color: blue;
+   
   }
 }
 /* desktop */
 @media (min-width: 1100px) {
   body {
-    background-color: burlywood;
+    background-color: whitesmoke;
   }
 }

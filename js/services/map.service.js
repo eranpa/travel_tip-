@@ -3,9 +3,11 @@ export const mapService = {
   addMarker,
   panTo,
   mapClick,
+  showClick
 };
 
 var gMap;
+
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
   console.log("InitMap");
@@ -22,10 +24,21 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
       mapClick(mapsMouseEvent.latLng)
       // console.log(lat(), lng());
       panTo(lat(), lng())
-
+      
    
     });
+   
   });
+}
+
+function showClick(loc) {
+  var marker = new google.maps.Marker({
+    position: loc,
+    map: gMap,
+    title: "Hello World!",
+  });
+  setTimeout(() => marker.setMap(null), 10000)
+  return marker;
 }
 
 function addMarker(loc) {
@@ -38,6 +51,7 @@ function addMarker(loc) {
 }
 
 function panTo(lat, lng) {
+  console.log('in pan to', lat,lng)
   var laLatLng = new google.maps.LatLng(lat, lng);
   gMap.panTo(laLatLng);
 }
@@ -58,21 +72,30 @@ function _connectGoogleApi() {
 
 
 function mapClick (evLoc){ 
+  // toggleIsInfo()
   let { lat, lng } = evLoc;
   panTo(lat(), lng()) 
-  let marker = addMarker({lat:lat(),lng: lng()})
-  console.log(marker)
+  let marker = showClick({lat:lat(),lng: lng()})
+  // console.log(marker)
+  printMarker(marker)
   let contentString = `<form onsubmit="OnNameSubmit(event,${lat()},${lng()})">
   <input type="text" name="name" placeholder="Enter locations name">
   <button>submit</button>
-</form>`
-
+  </form>`
+  // let contentString = `<form onsubmit="OnNameSubmit(event,${marker})">
+  // <input type="text" name="name" placeholder="Enter locations name">
+  // <button>submit</button>
+  // </form>`
+  
   const infowindow = new google.maps.InfoWindow({
     content: contentString,
+    
   });
- 
- 
+  
+  
+  
   marker.addListener("click", () => {
+
     infowindow.open({
       anchor: marker,
       map: gMap,
@@ -81,3 +104,10 @@ function mapClick (evLoc){
   });
 }
 
+
+
+
+
+function printMarker(marker) { 
+  console.log('marker', marker)
+}
