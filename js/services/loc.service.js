@@ -37,9 +37,9 @@ function createLocation(name, lat, lng) {
 
 
     function getLocById(locId) { 
-        return  gLocs.find((loc) => locId === gLocs.id)
+        
+       console.log(gLocs.findIndex((location) => locId === gLocs.id))
     }
-    // console.log('locs -in get by id', locs)
     
 
 

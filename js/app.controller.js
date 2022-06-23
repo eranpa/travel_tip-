@@ -96,7 +96,7 @@ function onGo (lat, lng) {
 function onDelete(ID) {
   
   let location = locService.getLocById(ID)
-  console.log(location)
+  // console.log(location)
 }
 
 function onPanToUserPos() { 
@@ -112,11 +112,16 @@ function onSearch(ev) {
   if (ev) ev.preventDefault();
   const elInputSearch = document.querySelector('input[name=search]')
   console.log(elInputSearch.value)
-  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${elInputSearch.value}&key=${API_KEY}`)
+  let address = elInputSearch.value.split(' ').join('+')
+  // console.log('address-after split', address)
+  // address = address.join('+')
+  console.log('address after join', address)
+  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`)
   .then(res => {
     let {lat, lng} = res.data.results[0].geometry.location
     let location = locService.createLocation(elInputSearch.value, lat, lng)
     mapService.panTo(lat, lng)
+    mapService.addMarker({lat, lng})
     locService.updateLocs(location)
   })
 }

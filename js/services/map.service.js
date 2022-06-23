@@ -75,7 +75,7 @@ function mapClick (evLoc){
   // toggleIsInfo()
   let { lat, lng } = evLoc;
   panTo(lat(), lng()) 
-  let marker = showClick({lat:lat(),lng: lng()})
+  let marker = addMarker({lat:lat(),lng: lng()})
   // console.log(marker)
   printMarker(marker)
   let contentString = `<form onsubmit="OnNameSubmit(event,${lat()},${lng()})">
