@@ -111,11 +111,8 @@ function onSearch(ev) {
   const API_KEY = 'AIzaSyDAow59MaV5ebb7HEU2fL7bbYBSeT9jDeM'
   if (ev) ev.preventDefault();
   const elInputSearch = document.querySelector('input[name=search]')
-  console.log(elInputSearch.value)
   let address = elInputSearch.value.split(' ').join('+')
-  // console.log('address-after split', address)
-  // address = address.join('+')
-  console.log('address after join', address)
+  console.log('address after split and join', address)
   return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`)
   .then(res => {
     let {lat, lng} = res.data.results[0].geometry.location
