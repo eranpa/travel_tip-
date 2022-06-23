@@ -41,8 +41,8 @@ function onAddMarker() {
 
 function onGetLocs() {
   locService.getLocs().then((locs) => {
-    
-    let strHTML = locs.map((location) => {
+    let strHTML = '<tr><th>Name</th><th>Lat</th><th>Lng</th><th>Id</th><th>CreatedAt</th><th>UpdatedAt</th><th>actions</th></tr><tr>'
+    let strHTMLRows = locs.map((location) => {
       return `<tr><td>${location.name}</td>
         <td>${location.lat}</td>
         <td>${location.lng}</td>
@@ -52,11 +52,10 @@ function onGetLocs() {
         <td><button id = "", " onClick = "onGo(${location.lat}, ${location.lng})">go</button>
         <button id = "", " onClick = "onDelete('${location.id}')">delete</button>
  
-       
         </tr>`
     });
   
-    document.querySelector(".locs").innerHTML += strHTML.join("") + '</tr>';
+    document.querySelector(".locs").innerHTML = strHTML + strHTMLRows.join("") + '</tr>';
   });
 }
 
